@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import emailjs from "emailjs-com";
 
 const Contact = () => {
 
@@ -24,8 +24,13 @@ const Contact = () => {
         e.preventDefault();
         alert(
             `My name is ${data.fullname}. My mobile number is ${data.phone} and email is ${data.email}, Here is what I want to say ${data.msg}`
-            );
+        );
+        emailjs.sendForm("service_30n972j","template_0a2i8mu",e.target,"user_wreZNgwlQviQEIHQt7WbE").then(res=>{
+           alert("Check your email now!");
+        }).catch(err=> alert(err + ", mail is not sent. Try Again!"));
     }
+
+    
     return (
         <>
             <div className="my-5" >
@@ -36,23 +41,23 @@ const Contact = () => {
                     <div className="col-md-6 col-10 mx-auto" >
                     <form onSubmit={formSubmit}>
                         <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Full name</label>
-                        <input class="form-control" id="exampleFormControlInput1" name="fullname" value={data.fullname} onChange={InputEvent} placeholder="Enter your name"/>
+                        <label for="exampleFormControlInput1" class="form-label">Full name*</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="fullname" value={data.fullname} onChange={InputEvent} placeholder="Enter your name" required/>
                         </div>
 
                         <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Phone</label>
-                        <input type="number" class="form-control" id="exampleFormControlInput1" name="phone" value={data.phone} onChange={InputEvent} placeholder="Mobile number"/>
+                        <label for="exampleFormControlInput1" class="form-label">Phone*</label>
+                        <input type="tel" class="form-control" id="exampleFormControlInput1" name="phone" value={data.phone} onChange={InputEvent} placeholder="Mobile number" required/>
                         </div>
 
                         <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" name="email" value={data.email} onChange={InputEvent} placeholder="name@example.com"/>
+                        <label for="exampleFormControlInput1" class="form-label">Email address*</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" name="email" value={data.email} onChange={InputEvent} placeholder="name@example.com" required/>
                         </div>
 
                         <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Message</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="msg" value={data.msg} onChange={InputEvent}></textarea>
+                        <label for="exampleFormControlTextarea1" class="form-label">Message*</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="msg" value={data.msg} onChange={InputEvent} placeholder="write your message here" required></textarea>
                         </div>
 
                         <div class="col-12">
